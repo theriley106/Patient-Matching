@@ -83,21 +83,23 @@ def calc_similarity(row1, row2):
 		# This will be the same length
 		column1, value1 = row1[i]
 		column2, value2 = row2[i]
-		if str(value1) == "" and str(value2) == "":
-			pass
-		elif str(value1) == "" or str(value2) == "":
-			pass
-		elif column1 not in COLUMN_PRIORITY:
-			pass
-		else:
-
-			count += 1
-			r = min(len(value1), len(value2))
-			if r == 0:
+		if column1 != "GROUPID" and column2 != "GROUPID":
+			# Ensures that we are ignoring group IDs
+			if str(value1) == "" and str(value2) == "":
+				pass
+			elif str(value1) == "" or str(value2) == "":
+				pass
+			elif column1 not in COLUMN_PRIORITY:
 				pass
 			else:
-				if float(calc_distance(str(value1), str(value2))) / float(r) < .2:
-					score += COLUMN_PRIORITY[column1]
+
+				count += 1
+				r = min(len(value1), len(value2))
+				if r == 0:
+					pass
+				else:
+					if float(calc_distance(str(value1), str(value2))) / float(r) < .2:
+						score += COLUMN_PRIORITY[column1]
 			
 	# print score
 	if score == 0:

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Ping Time to Equinix DV4</title>
+  <title>AllyMatch</title>
 
   <!-- Custom fonts for this template-->
   <link href="static/frontEnd/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,23 +20,42 @@
   <!-- Custom styles for this template-->
   <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
 
-  <title>Ping Time to Equinix DV4</title>
+  <title>AllyMatch</title>
     <script src="{{ url_for('static',filename='js/Chart.bundle.js') }}"></script>
     <script src="{{ url_for('static',filename='js/utils.js') }}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
+
   function submitVal(ev){
-    alert("AYY");
         $.ajax( {
-            url: '/myTractor',
+            url: '/submit',
             type: 'POST',
             data: new FormData( document.getElementById("upload-form") ),
             processData: false,
             contentType: false,
             success: function(result){
-                console.log(result);
-                //$("#div1").html(str);
+                obVal = result;
+                $("#div1").html(obVal.html);
+                $("#div2").html(obVal.html2);
+
+                $("#cardBody1").html(obVal.count1);
+                $("#cardBody2").html(obVal.count2);
+            }
+        } );
+
+      }
+
+      function submitWeights(){
+        $.ajax( {
+            url: '/weights',
+            type: 'POST',
+            data: new FormData( document.getElementById("upload-formz") ),
+            processData: false,
+            contentType: false,
+            success: function(result){
+                location.reload();
+
             }
         } );
 
@@ -112,17 +131,19 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modify Web Socket Endpoint</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Modify Weights</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
               <div class="modal-body">
-                <input type="text" class="form-control bg-light" id="endPointValue" placeholder="localhost:3000" aria-label="Search" aria-describedby="basic-addon2">
+                <form id="upload-formz" action="/weights" method="POST" enctype="multipart/form-data">
+                  <input id="file-picker2" type="file" name="file" accept=".csv">
+               </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="save_endpoint()">Save changes</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onClick="submitWeights()">Save changes</button>
               </div>
             </div>
           </div>
@@ -153,7 +174,7 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" target="_blank" href="https://github.com/theriley106">
+        <a class="nav-link collapsed" target="_blank" href="https://github.com/theriley106/Patient-Matching">
           <img style="filter: invert(100%);" src="/static/github.png" height="18px" width="18px">
           <span>Github</span>
         </a>
@@ -161,7 +182,7 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" target="_blank" href="https://www.kaggle.com/theriley106">
+        <a class="nav-link collapsed" target="_blank" href="https://github.com/theriley106/Patient-Matching/blob/master/cleanData.py">
           <img style="" src="/static/python.png" height="20px" width="18px">
           <span>Download Script</span>
         </a>
@@ -195,7 +216,7 @@
 
             <div>
 
-            <form id="upload-form" action="/myTractor" method="POST" enctype="multipart/form-data">
+            <form id="upload-form" action="/submit" method="POST" enctype="multipart/form-data">
               <input id="file-picker" type="file" name="file" accept=".csv" style="display:none" class="hidden" onchange="submitVal(this);">
               <label for="file-picker" class="btn btn-lg btn-secondary">Upload Dataset</label>
            </form>
@@ -215,10 +236,10 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 id="pingTimeHeader" class="m-0 font-weight-bold">Success Rate</h6>
+                  <h6 id="pingTimeHeader" class="m-0 font-weight-bold">Rows Uploaded</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div id="cardBody1" class="card-body">
                 </div>
               </div>
             </div>
@@ -228,10 +249,11 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 id="marketPriceHeader" class="m-0 font-weight-bold">Patients Matched</h6>
+                  <h6 id="marketPriceHeader" class="m-0 font-weight-bold">Success Rate</h6>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
+                <div id="cardBody2" class="card-body">
+                  
               </div>
             </div>
 
@@ -240,8 +262,22 @@
 
         </div>
         <!-- /.container-fluid -->
-        
-          {% include 'tables.html' %}
+
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Unfiltered Patient Data</h6>
+          </div>
+          <div class="card-body">
+            <div id="div1" class="table-responsive">
+              <center>UPLOAD DATASET TO CONTINUE</center>
+              
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
 
       </div>
       <!-- End of Main Content -->
@@ -267,6 +303,25 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
+  <script>
+  function httpGet(theUrl)
+  {
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+      xmlHttp.send( null );
+      return xmlHttp.responseText;
+  }
+
+  jsonString = httpGet("/recentupload");
+  console.log(jsonString);
+  obVal2 = JSON.parse(jsonString);
+
+  document.getElementById("div1").innerHTML = obVal2.html;
+
+  document.getElementById("cardBody1").innerHTML = obVal2.count1;
+  document.getElementById("cardBody2").innerHTML = obVal2.count2 + "%";
+</script>
 
   <!-- Bootstrap core JavaScript-->
   <script src="static/vendor/jquery/jquery.min.js"></script>
