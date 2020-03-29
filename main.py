@@ -42,11 +42,12 @@ def calc_based_on_csv(csvFile):
         mostSimilar = None
         mostSimilarScore = 0
         for rowdos in values:
-            score, count = cleanData.calc_similarity(rowuno, rowdos)
-            counts += count
-            if score >= mostSimilarScore:
-                mostSimilar = rowdos
-                mostSimilarScore = score
+            if rowdos != rowuno:
+                score, count = cleanData.calc_similarity(rowuno, rowdos)
+                counts += count
+                if score >= mostSimilarScore:
+                    mostSimilar = rowdos
+                    mostSimilarScore = score
 
         if rowuno[0][1] == mostSimilar[0][1]:
             # This verifies the group IDs are the same

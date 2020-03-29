@@ -10,8 +10,16 @@ from IPython.display import display, HTML
 import soundex
 import cleanData
 import time
+import sys
 
-with open("data.csv", "r") as f:
+
+
+if len(sys.argv) == 1:
+    fileVal = "data.csv"
+else:
+    fileVal = sys.argv[-1]
+
+with open(fileVal, "r") as f:
     reader = csv.reader(f)
     dataset = []
     for i, row in enumerate(reader):
@@ -67,6 +75,5 @@ for rowuno in values:
     if rowuno[0][1] == mostSimilar[0][1]:
         scoreVal += 1
     # display("{} == {}".format(row.GROUPID, mostSimilar.GROUPID))
-display("Success score: {}".format((float(scoreVal)/float(len(list(dataframe.itertuples()))))* 100))
-display("COUNT: {}".format(counts))
-
+successScore = float(scoreVal)/float(len(list(dataframe.itertuples())))
+print successScore * 100
