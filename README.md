@@ -37,7 +37,9 @@ We are using these weights:
     "PREVIOUS_CITY": .100,
     "PREVIOUS_STATE": .100,
     "PREVIOUS_ZIP_CODE": .100,
-}```
+}
+
+```
 
 and this psuedocode to compare rows:
 
