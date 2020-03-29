@@ -11,7 +11,7 @@ LAHacks Patient Matching Challenge
 
 We initially intended to take an ML approach to solving the problem, but as we started exploring the dataset we realized that an approach using a combination of soundex values and a weighted levenshtein distance could give us near perfect results.
 
-We went through each column type and manually ranked values that would likely be misheard in a hospital setting.  We then created a heuristic technique to match patients to each other based on the algorithm defined below.  We were able to achieve ~~99.5%~~ high accuracy on the given dataset (after changing some weights we are now unclear about the success rate, but it's consistently >90%)
+We went through each column type and manually ranked values that would likely be misheard in a hospital setting.  We then created a heuristic technique to match patients to each other based on the algorithm defined below.  We were able to achieve ~~99.5%~~ high accuracy on the given dataset (after changing some weights we are now unclear about the success rate, but it's consistently >92.5%)
 
 We are using these weights:
 

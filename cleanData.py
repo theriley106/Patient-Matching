@@ -6,16 +6,15 @@ STATES = json.load(open("states.json"))
 
 
 COLUMN_PRIORITY = {
-    "PATIENT_ACCT_#": 1.00,
-	"First": .930,
-    "CURRENT_ZIP_CODE": .555,
-    "CURRENT_STATE": .511,
-    "CURRENT_STREET_1": .509,
-    "DATE_OF_BIRTH": .503,
-    "LAST_NAME": .491,
-    "FIRST_NAME": .400,
-    "MI": .310,
-    "CURRENT_CITY": .303,
+    "PATIENT_ACCT_#": .500,
+    "CURRENT_ZIP_CODE": .655,
+    "CURRENT_STATE": .611,
+    "CURRENT_STREET_1": .709,
+    "DATE_OF_BIRTH": .903,
+    "LAST_NAME": .891,
+    "FIRST_NAME": .600,
+    "MI": .810,
+    "CURRENT_CITY": .503,
     "SEX": .100,
     "CURRENT_STREET_2": .100,
     "PREVIOUS_FIRST_NAME": .100,
@@ -88,7 +87,7 @@ def calc_similarity(row1, row2):
 			if str(value1) == "" and str(value2) == "":
 				pass
 			elif str(value1) == "" or str(value2) == "":
-				pass
+				score += COLUMN_PRIORITY[column1] / 2
 			elif column1 not in COLUMN_PRIORITY:
 				pass
 			else:
@@ -98,7 +97,7 @@ def calc_similarity(row1, row2):
 				if r == 0:
 					pass
 				else:
-					if float(calc_distance(str(value1), str(value2))) / float(r) < .2:
+					if float(calc_distance(str(value1), str(value2))) / float(r) < .3:
 						score += COLUMN_PRIORITY[column1]
 			
 	# print score
