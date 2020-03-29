@@ -9,8 +9,8 @@ APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 def index():
 	return render_template("index.html")
 
-@app.route('/test', methods=['GET'])
-def testPage():
+@app.route('/table', methods=['GET'])
+def tablePage():
 	return render_template("tables.html")
 
 # upload selected image and forward to processing page
@@ -30,7 +30,7 @@ def myTractor():
     # file support verification
     ext = os.path.splitext(filename)[1]
     # save file
-    if (ext == ".jpg") or (ext == ".png") or (ext == ".bmp"):
+    if (ext == ".csv"):
         print("File accepted")
     else:
         return "{} not supported".format(ext)
