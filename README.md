@@ -3,6 +3,9 @@ LAHacks Patient Matching Challenge
 
 <h1 align="center"><a href="https://allymatch.herokuapp.com/">AllyMatch Online Patient Matching Dashboard</a></h1>
 
+<p align="center">
+<img src ="static/ss.png">
+</p>
 
 ## Explanation
 
