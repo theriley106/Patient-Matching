@@ -6,26 +6,26 @@ STATES = json.load(open("states.json"))
 
 
 COLUMN_PRIORITY = {
-	"First": 100,
-    "PATIENT_ACCT_#": 100,
-    "LAST_NAME": 50,
-    "DATE_OF_BIRTH": 50,
-    "CURRENT_ZIP_CODE": 50,
-    "MI": 50,
-    "FIRST_NAME": 4,
-    "SEX": 1,
-    "CURRENT_STREET_1": 50,
-    "CURRENT_STREET_2": 1,
-    "CURRENT_CITY": 30,
-    "CURRENT_STATE": 50,
-    "PREVIOUS_FIRST_NAME": 1,
-    "PREVIOUS_MI": 1,
-    "PREVIOUS_LAST_NAME": 1,
-    "PREVIOUS_STREET_1": 1,
-    "PREVIOUS_STREET_2": 1,
-    "PREVIOUS_CITY": 1,
-    "PREVIOUS_STATE": 1,
-    "PREVIOUS_ZIP_CODE": 1,
+    "PATIENT_ACCT_#": 1.00,
+	"First": .930,
+    "CURRENT_ZIP_CODE": .555,
+    "CURRENT_STATE": .511,
+    "CURRENT_STREET_1": .509,
+    "DATE_OF_BIRTH": .503,
+    "LAST_NAME": .491,
+    "FIRST_NAME": .400,
+    "MI": .310,
+    "CURRENT_CITY": .303,
+    "SEX": .100,
+    "CURRENT_STREET_2": .100,
+    "PREVIOUS_FIRST_NAME": .100,
+    "PREVIOUS_MI": .100,
+    "PREVIOUS_LAST_NAME": .100,
+    "PREVIOUS_STREET_1": .100,
+    "PREVIOUS_STREET_2": .100,
+    "PREVIOUS_CITY": .100,
+    "PREVIOUS_STATE": .100,
+    "PREVIOUS_ZIP_CODE": .100,
 }
 
 def score_address_diff(string):
@@ -76,17 +76,22 @@ def dob(dob):
 
 def calc_similarity(row1, row2):
 	score = 0.0
+	count = 0
+	# print row1
+	# print row2
 	for i in xrange(len(row1)):
 		# This will be the same length
 		column1, value1 = row1[i]
 		column2, value2 = row2[i]
-		if str(row1) == "None" and str(row2) == "None":
+		if str(value1) == "" and str(value2) == "":
 			pass
-		if str(row1) == "None" or str(row2) == "None":
+		elif str(value1) == "" or str(value2) == "":
 			pass
 		elif column1 not in COLUMN_PRIORITY:
 			pass
 		else:
+
+			count += 1
 			r = min(len(value1), len(value2))
 			if r == 0:
 				pass
@@ -96,8 +101,8 @@ def calc_similarity(row1, row2):
 			
 	# print score
 	if score == 0:
-		return 0
-	return score
+		return 0, count
+	return score, count
 
 distance_map = {
 	"CURRENT_STREET_2": address2,
