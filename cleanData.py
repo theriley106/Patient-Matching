@@ -67,7 +67,7 @@ def calc_distance(val1, val2):
 	val1 = val1.split(" ")
 	val2 = val2.split(" ")
 	score = 0
-	for i in range(min(len(val1), len(val2))):
+	for i in xrange(min(len(val1), len(val2))):
 		score += lev.distance(val1[i], val2[i])
 	return score
 
@@ -76,7 +76,7 @@ def dob(dob):
 
 def calc_similarity(row1, row2):
 	score = 0.0
-	for i in range(len(row1)):
+	for i in xrange(len(row1)):
 		# This will be the same length
 		column1, value1 = row1[i]
 		column2, value2 = row2[i]

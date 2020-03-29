@@ -9,6 +9,7 @@ import pandas as pd
 from IPython.display import display, HTML
 import soundex
 import cleanData
+import time
 
 with open("data.csv", "r") as f:
     reader = csv.reader(f)
@@ -46,21 +47,27 @@ for row in dataset[1:-1]:
 s = soundex.getInstance()
 scoreVal = 0
 dataframe['First'] = [s.soundex(x) for x in dataframe.FIRST_NAME]
-for row in dataframe.itertuples():
+
+values = [list([(columns[i], row[i]) for i in range(len(columns))]) for row in dataframe.itertuples()]
+
+start = time.time()
+
+for rowuno in values:
     mostSimilar = None
     mostSimilarScore = 0
-    rowuno = list([(columns[i], row[i]) for i in range(len(columns))])
-    for row2 in dataframe.itertuples():
-        rowdos = list([(columns[i], row2[i]) for i in range(len(columns))])
+    for rowdos in values:
         score = cleanData.calc_similarity(rowuno, rowdos)
         if score >= mostSimilarScore:
-            mostSimilar = row2
+            mostSimilar = rowdos
             mostSimilarScore = score
-    if row.GROUPID == mostSimilar.GROUPID:
+    # print rowdos
+    if rowuno[0][1] == mostSimilar[0][1]:
         scoreVal += 1
     # display("{} == {}".format(row.GROUPID, mostSimilar.GROUPID))
 display("Success score: {}".format((float(scoreVal)/float(len(list(dataframe.itertuples()))))* 100))
 
+end = time.time()
+print(end - start)
 
 # In[ ]:
 
