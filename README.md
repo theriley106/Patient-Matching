@@ -53,9 +53,11 @@ iterate over each column value each row
 split each value on a space character and calculate the sum of levenshtein distances for each piece
 divide the sum of levenshtein distances by the length of the word -> set as distanceScore
 
-if distanceScore is within a certain threshold (our program is .2) add the column weight to a combined score value
+if distanceScore is within a certain threshold add the column weight to a combined score value
+# our program has a default threshold of 0.2 
 
-the relationship between the rows is now defined numerically -> the highest value score is now the most similar row
+the relationship between the rows is now defined numerically
+the highest value score is the most similar row
 ```
 
 
