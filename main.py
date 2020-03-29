@@ -6,7 +6,8 @@
 
 import csv
 import pandas as pd
-import soundex
+# import soundex
+# ^ Soundex is not working with heroku :(
 import cleanData
 import time
 
@@ -27,9 +28,9 @@ def calc_based_on_csv(csvFile):
     QUANTITY_OF_PATIENTS = [x for x in dataset]
 
 
-    s = soundex.getInstance()
+    # s = soundex.getInstance()
     scoreVal = 0
-    dataframe['First'] = [s.soundex(x) for x in dataframe.FIRST_NAME]
+    dataframe['First'] = ["" for x in dataframe.FIRST_NAME]
 
     values = [list([(columns[i], row[i]) for i in range(len(columns))]) for row in dataframe.itertuples(index=False)]
 
