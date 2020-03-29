@@ -178,11 +178,10 @@
             <h1 class="h3 mb-0 text-gray-800">Patient Matching Dashboard</h1>
 
             <div>
-            <a href="/download/vix" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Upload Dataset</a>
 
             <form id="upload-form" action="{{ url_for('myTractor') }}" method="POST" enctype="multipart/form-data">
-              <input id="file-picker" type="file" name="file" accept="image/*" class="hidden" onchange="this.form.submit();unhide();">
-              <label for="file-picker" class="btn btn-lg btn-success">Select file</label>
+              <input id="file-picker" type="file" name="file" accept=".csv" style="display:none" class="hidden" onchange="this.form.submit();unhide();">
+              <label for="file-picker" class="btn btn-lg btn-secondary">Upload Dataset</label>
            </form>
           </div>
           </div>
