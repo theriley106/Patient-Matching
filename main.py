@@ -6,7 +6,6 @@
 
 import csv
 import pandas as pd
-from IPython.display import display, HTML
 import soundex
 import cleanData
 import time
