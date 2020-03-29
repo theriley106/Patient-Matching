@@ -24,8 +24,24 @@
     <script src="{{ url_for('static',filename='js/Chart.bundle.js') }}"></script>
     <script src="{{ url_for('static',filename='js/utils.js') }}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+  function submitVal(ev){
+    alert("AYY");
+        $.ajax( {
+            url: '/myTractor',
+            type: 'POST',
+            data: new FormData( document.getElementById("upload-form") ),
+            processData: false,
+            contentType: false,
+            success: function(result){
+                console.log(result);
+                //$("#div1").html(str);
+            }
+        } );
 
-  
+      }
+  </script>
 
   <style>
     .material-icons.md-18 { font-size: 18px; }
@@ -179,8 +195,8 @@
 
             <div>
 
-            <form id="upload-form" action="{{ url_for('myTractor') }}" method="POST" enctype="multipart/form-data">
-              <input id="file-picker" type="file" name="file" accept=".csv" style="display:none" class="hidden" onchange="this.form.submit();unhide();">
+            <form id="upload-form" action="/myTractor" method="POST" enctype="multipart/form-data">
+              <input id="file-picker" type="file" name="file" accept=".csv" style="display:none" class="hidden" onchange="submitVal(this);">
               <label for="file-picker" class="btn btn-lg btn-secondary">Upload Dataset</label>
            </form>
           </div>
@@ -268,6 +284,8 @@
   <!-- Page level custom scripts -->
   <script src="static/js/demo/chart-area-demo.js"></script>
   <script src="static/js/demo/chart-pie-demo.js"></script>
+
+  
 
 </body>
 
