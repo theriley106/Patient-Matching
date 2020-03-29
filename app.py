@@ -16,6 +16,10 @@ def index():
 def tablePage():
 	return render_template("tablesBackup.html")
 
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template("about.html")
+
 @app.route('/recentupload', methods=['GET'])
 def recent():
     destination = "data.csv"
