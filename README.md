@@ -18,7 +18,7 @@ We are using these weights:
 ```
 {
     "PATIENT_ACCT_#": 1.00,
-	"First": .930,
+    "First": .930,
     "CURRENT_ZIP_CODE": .555,
     "CURRENT_STATE": .511,
     "CURRENT_STREET_1": .509,
