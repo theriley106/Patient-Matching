@@ -1,5 +1,5 @@
 gunicorn==19.7.1
-requests==2.12.3
+requests==2.20.0
 Flask==1.0.0
 python-Levenshtein==0.12.0
 soundex==1.1.3
